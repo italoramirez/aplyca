@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ parent() }}
+	- Nuevo Post
+
+
+{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+	<div class="container">
+		<div class="col-md-8 offset-2">
+			<h1>desde edit</h1>
+			{{ form(form) }}
+			</div>
+		</div>
+
+	{% endblock %}
+
