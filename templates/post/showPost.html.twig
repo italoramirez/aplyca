@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ parent() }}
+	- Inicio
+
+
+{% endblock %}
+
+{% block body %}
+	{# {{ dump(post) }} #}
+	{{ parent() }}
+	<div class="container mt-5 p-2">
+		<div class="rounded bg-light row">
+			<div class="col-md-8">
+				<h2 class="text-center mt-3">{{ post.titulo }}</h2>
+				<strong class="mt-3">Fecha de publicación:{{ post.fechapublicacion | date }}</strong><br/>
+				<p class="mt-3">
+					{{ post.contenido }}
+				</p>
+			</div>
+
+			<div class="col-md-4 mt-4">
+				<img src="{{ asset('uploads/brochures/'~post.foto) }}" class="img-thumbnail" alt="Foto blog"/>
+			</div>
+		</div>
+	</div>
+</div>{% endblock  %}
+

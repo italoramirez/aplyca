@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ parent() }}
+	- Mis Post
+{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+
+	<div class="container">
+		<h1 class="text-center mt-5 mb-5">Mis Post<h1>
+				<div class="card-columns">
+					{% for posts in post %}
+						<div class="card">
+							<div class="card-body">
+								<h5 class="card-title">{{ posts.titulo }}</h5>
+								<img src="{{ asset('uploads/brochures/'~posts.foto) }}" class="img-thumbnail" alt="Foto blog"/>
+								<p class="card-text mt-2">{{ posts.contenido }}</p>
+								<p class="card-text">
+									<small class="text-muted">{{ posts.fechapublicacion | date }}</small>
+								</p>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+				<div>
+				{% endblock %}
+

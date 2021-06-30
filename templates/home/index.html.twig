@@ -1,39 +1,65 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!
+{% block title %}
+	{{ parent() }}
+	- Inicio
+
+
 {% endblock %}
+
+
 
 {% block body %}
-	<style>
-		.example-wrapper {
-			margin: 1em auto;
-			max-width: 800px;
-			width: 95%;
-			font: 18px / 1.5 sans-serif;
-		}
-		.example-wrapper code {
-			background: #F5F5F5;
-			padding: 2px 6px;
-		}
-	</style>
+	{# <div class="count">
+		{{ pagination.getTotalItemCount }}
+	</div> #}
 
-	<div class="example-wrapper">
-		<h1>Hello
-			{{ var }}! ✅</h1>
 
-		This friendly message is coming from:
-		<ul>
-			<li>Your controller at
-				<code>
-					<a href="{{ '/Users/italoramirezprieto/Documents/symfony/blog/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a>
-				</code>
-			</li>
-			<li>Your template at
-				<code>
-					<a href="{{ '/Users/italoramirezprieto/Documents/symfony/blog/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a>
-				</code>
-			</li>
-		</ul>
+	{{ parent() }}
+    {# {{ dump(post) }} #}
+	{# {{ dump(pagination) }} #}
+
+    <div class="container mt-5">
+        {% for post in pagination %}
+            <div class="rounded bg-light row">
+                <div class="col-md-8">
+                <h2 class="text-center">{{post.titulo}}</h2>
+                <strong>Creado por:{{post.nombre}}</strong><br />
+                <small>Fecha de publicación:{{ post.fecha_publicacion | date }}</small>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque quod
+                    at accusamus saepe facilis fuga dolorem libero sapiente nesciunt
+                    velit ipsam est illum id a laudantium cumque, dicta reprehenderit
+                    culpa.
+                </p>
+                </div>
+                <div class="col-md-4">
+                <img
+                    src="{{ asset('uploads/brochures/'~post.foto) }}"
+                    class="img-thumbnail"
+                    alt="..."
+                />
+                </div>
+            </div>
+
+            {% if app.user %}
+            
+                <button class="btn btn-primary" onclick="window.location.href='{{ path('showPost',{id:post.id}) }}'">
+                    Ver Post
+                </button>
+
+                {% else %}
+                    <button class="btn btn-primary" disabled onclick="window.location.href='{{ path('showPost',{id:post.id}) }}'">
+                        Ver Post
+                    </button>
+                                
+            {% endif %}
+            
+        {% endfor %}
+    </div>
+    
+		<div class="d-flex justify-content-center">
+			<div class="navigation">{{ knp_pagination_render(pagination) }}</div>
+		</div>
 	</div>
 {% endblock %}
-

@@ -51,8 +51,32 @@ class PostController extends AbstractController
             return $this->redirectToRoute('home');
         }
         return $this->render('post/index.html.twig', [
-            'controller_name' => 'PostController',
             'form'            => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/show-post/{id}", name="showPost")
+     */
+    public function showPost($id)
+    {
+        $em   = $this->getDoctrine()->getManager();
+        $post = $em->getRepository(Posts::class)->find($id);
+        return $this->render('post/showPost.html.twig', ['post' => $post]);
+    }
+
+    /**
+     * @Route("/my-post/", name="allPost")
+     */
+    public function myPost()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $post = $em->getRepository(Posts::class)->findBy(['user' => $user]);
+        return $this->render('post/myPost.html.twig', ['post' => $post]);
+    }
+
+    public function update()
+    {
     }
 }
